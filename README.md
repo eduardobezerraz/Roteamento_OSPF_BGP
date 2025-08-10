@@ -164,3 +164,40 @@ router ospf 1
 ```
 
 ## Configurações BPG por Roteador
+### R1
+```cisco
+enable
+configure terminal
+router bgp 941
+ bgp log-neighbor-changes
+ neighbor 10.24.9.18 remote-as 65001
+ network 10.24.9.0 mask 255.255.255.0
+exit
+router ospf 1
+ redistribute bgp 941 subnets
+exit
+router bgp 941
+ redistribute ospf 1
+exit
+end
+write memory
+```
+
+### R8
+```cisco
+enable
+configure terminal
+router bgp 941
+ bgp log-neighbor-changes
+ neighbor 10.24.41.14 remote-as 65002
+ network 10.24.41.0 mask 255.255.255.0
+exit
+router ospf 1
+ redistribute bgp 941 subnets
+exit
+router bgp 941
+ redistribute ospf 1
+exit
+end
+write memory
+```
